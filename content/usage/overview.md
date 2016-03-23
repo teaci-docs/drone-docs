@@ -16,11 +16,13 @@ Example .drone.yml configuration:
 ```yaml
 ---
 build:
-  image: golang
+  image: teaci/msys32
+  shell: msys32
+  pull: true
   commands:
-    - go get
-    - go build
-    - go test
+    - ./configure
+    - make
+    - make check
 ```
 
 # Hooks
@@ -32,11 +34,13 @@ When Drone receives a hook it fetches the `.drone.yml` from your repository and 
 ```yaml
 ---
 build:
-  image: golang
+  image: teaci/msys32
+  shell: msys32
+  pull: true
   commands:
-    - go get
-    - go build
-    - go test
+    - ./configure
+    - make
+    - make check
 ```
 
 # Cloning
@@ -55,12 +59,37 @@ git checkout 7fd1a60
 
 Drone executes your build inside an ephemeral Docker image. This means you don't have to setup or install any repository dependencies on your host machine. Use any valid Docker image in any Docker registry as your build environment.
 
-Example .drone.yml configuration uses the official Go Docker image:
+Example .drone.yml configuration uses the Tea CI official 32 bit Msys2 image:
 
 ```yaml
 ---
 build:
-  image: golang
+  image: teaci/msys32
+```
+
+# Shell
+
+Drone executes your build using a custom shell you specified.
+
+Example .drone.yml configuration uses the Tea CI official 32 bit Msys2 image using the official msys32 shell:
+
+```yaml
+---
+build:
+  image: teaci/msys32
+  shell: msys32
+```
+
+# Pull
+
+Use the `pull` attribute to instruct Drone to always pull the latest Docker image. This helps ensure you are always testing your code against the latest image. We recommend you always using `pull: true` with the Msys2 Docker image.
+
+```yaml
+---
+build:
+  image: teaci/msys32
+  shell: msys32
+  pull: true
 ```
 
 # Commands
@@ -72,11 +101,13 @@ Drone executes the following bash commands inside your build container:
 ```yaml
 ---
 build:
-  image: golang
+  image: teaci/msys32
+  shell: msys32
+  pull: true
   commands:
-    - go get
-    - go build
-    - go test
+    - ./configure
+    - make
+    - make check
 ```
 
 # Services
@@ -88,11 +119,13 @@ Example .drone.yml configuration with a Postgres database:
 ```yaml
 ---
 build:
-  image: golang
+  image: teaci/msys32
+  shell: msys32
+  pull: true
   commands:
-    - go get
-    - go build
-    - go test
+    - ./configure
+    - make
+    - make check
 
 compose:
   database:
@@ -111,11 +144,13 @@ Example .drone.yml configuration with the Docker publish plugin:
 ```yaml
 ---
 build:
-  image: golang
+  image: teaci/msys32
+  shell: msys32
+  pull: true
   commands:
-    - go get
-    - go build
-    - go test
+    - ./configure
+    - make
+    - make check
 
 publish:
   docker:
@@ -125,16 +160,18 @@ publish:
     repo: octocat/hello-world
 ```
 
-First Drone runs your build commands inside the Golang container:
+First Drone runs your build commands inside the teaci/msys32 container:
 
 ```yaml
 ---
 build:
-  image: golang
+  image: teaci/msys32
+  shell: msys32
+  pull: true
   commands:
-    - go get
-    - go build
-    - go test
+    - ./configure
+    - make
+    - make check
 ```
 
 Drone executes publish and deployment plugins upon successful completion of the build step. Plugins are executed in separate Docker containers but have access to your build workspace. This means any files created and stored in the `/drone` workspace are available to plugins.
@@ -163,6 +200,4 @@ drone exec
 
 # Getting Help
 
-For help troubleshooting **failed builds** please use [Stackoverflow](https://stackoverflow.com). The Stackoverflow community will be able to answer questions unique to your programming language and technology stack that the Drone maintainers are unqualified to answer.
-
-For all other questions or issues please use the community [chat room](https://gitter.im/drone/drone) for support.
+Please use the community [chat room](https://gitter.im/tea-ci/drone) for support.
