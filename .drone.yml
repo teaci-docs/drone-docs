@@ -14,6 +14,9 @@ build:
 
   push:
     image: golang:1.5
+    environment:
+      - user=$$USER
+      - pass=$$PASS
     commands:
       - ls
       - ls ..
@@ -25,8 +28,8 @@ build:
       - git config --global user.name "Tea CI Docs Bot"
       - git commit -a -m "Github pages auto update."
       - echo machine github.com > ~/.netrc
-      - echo         login $$USER >> ~/.netrc
-      - echo         password $$PASS >> ~/.netrc
+      - echo         login $user >> ~/.netrc
+      - echo         password $pass >> ~/.netrc
       - git push -f origin gh-pages-local:gh-pages
 
     when:
