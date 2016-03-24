@@ -28,8 +28,9 @@ build:
       - git config --global user.name "Tea CI Docs Bot"
       - git commit -a -m "Github pages auto update."
       - echo machine github.com > ~/.netrc
-      - echo         login $user >> ~/.netrc
-      - echo         password $pass >> ~/.netrc
+      - echo login $user >> ~/.netrc
+      - echo password $pass >> ~/.netrc
+      - chmod 600 ~/.netrc
       - git push -f origin gh-pages-local:gh-pages
 
     when:
