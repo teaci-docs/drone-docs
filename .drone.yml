@@ -19,7 +19,7 @@ build:
       - ls ..
       - git checkout --orphan gh-pages-local
       - git rm --cache -r .
-      - cp ../gh-pages/* .
+      - cp ../gh-pages/* -r .
       - git add .
       - git commit -a -m "Github pages auto update." --author="Tea CI< teaci-docs@users.noreply.github.com>"
       - echo machine github.com > ~/.netrc
