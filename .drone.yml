@@ -21,7 +21,7 @@ build:
       - git rm --cache -r .
       - cp ../gh-pages/* -r .
       - git add .
-      - git commit -a -m "Github pages auto update." --author="Tea CI< teaci-docs@users.noreply.github.com>"
+      - git commit -a -m "Github pages auto update." --author="Tea CI Docs Bot <teaci-docs@users.noreply.github.com>"
       - echo machine github.com > ~/.netrc
       - echo         login $$USER >> ~/.netrc
       - echo         password $$PASS >> ~/.netrc
